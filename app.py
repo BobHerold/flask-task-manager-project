@@ -31,7 +31,6 @@ def search():
     return render_template("tasks.html", tasks=tasks)
 
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -71,7 +70,7 @@ def login():
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}" .format(
                         request.form.get("username")))
-                    return redirect(url_for(
+                return redirect(url_for(
                         "profile", username=session["user"]))
             else:
                 # invalid password match
@@ -91,7 +90,6 @@ def profile(username):
     # grab the session user's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-
 
     if session["user"]:
         return render_template("profile.html", username=username)
